@@ -13,3 +13,21 @@ const player = (state) => ({
     Gameboard.changeGameBoard(position, state.playsWhich);
   },
 });
+
+const human = (playsWhich) => {
+  const state = {
+    playsWhich,
+  };
+  return {
+    ...player(state),
+  };
+};
+
+const computer = (playsWhich) => {
+  const state = {
+    playsWhich,
+  };
+  return {
+    ...player(state),
+  };
+};
