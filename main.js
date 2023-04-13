@@ -7,3 +7,9 @@ const Gameboard = (() => {
 
   return { getGameBoard, changeGameBoard };
 })();
+
+const player = (state) => ({
+  play: (position) => {
+    Gameboard.changeGameBoard(position, state.playsWhich);
+  },
+});
