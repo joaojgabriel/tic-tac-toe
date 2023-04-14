@@ -1,7 +1,6 @@
 const Gameboard = (() => {
   const cells = document.querySelectorAll('.cell');
   const gameBoard = ['X', 'X', 'X', 'O', 'O', 'O', 'X', 'X', 'X'];
-  const getGameBoard = () => gameBoard;
   const changeGameBoard = (position, play) => {
     gameBoard[position] = play;
   };
@@ -11,7 +10,7 @@ const Gameboard = (() => {
     });
   };
 
-  return { getGameBoard, changeGameBoard, renderBoard };
+  return { changeGameBoard, renderBoard };
 })();
 
 const player = (state) => ({
