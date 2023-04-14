@@ -36,3 +36,8 @@ const computer = (playsWhich) => {
     ...player(state),
   };
 };
+
+const Game = (() => {
+  const playerX = human('X');
+  const playerO = computer('O');
+})();
