@@ -1,16 +1,24 @@
 const Gameboard = (() => {
-  const cells = document.querySelectorAll('.cell');
-  const gameBoard = ['X', 'X', 'X', 'O', 'O', 'O', 'X', 'X', 'X'];
+  const gameBoard = ['X', 'O', 'X', null, 'X', null, 'X', 'O', 'X'];
+  const getGameboard = () => gameBoard;
   const changeGameBoard = (position, play) => {
     gameBoard[position] = play;
   };
+
+  return { changeGameBoard, getGameboard };
+})();
+
+const displayController = (() => {
+  const cells = document.querySelectorAll('.cell');
+  const gameBoard = Gameboard.getGameboard();
+
   const renderBoard = () => {
     cells.forEach((cell, index) => {
       cell.textContent = gameBoard[index];
     });
   };
 
-  return { changeGameBoard, renderBoard };
+  return { renderBoard };
 })();
 
 const player = (state) => ({
