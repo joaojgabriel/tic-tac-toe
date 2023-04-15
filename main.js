@@ -32,7 +32,7 @@ const displayController = (() => {
     });
 
     const thisCell = e.target;
-    const thisCellIndex = Array.prototype.indexOf.call(cells, thisCell);
+    const thisCellIndex = thisCell.getAttribute('data-index');
     Game.currentPlayer.mark(thisCellIndex);
     Game.turn += 1;
     renderBoard();
