@@ -1,8 +1,8 @@
 const Gameboard = (() => {
   const gameBoard = ['X', 'O', 'X', null, 'X', null, 'X', 'O', 'X'];
   const getGameboard = () => gameBoard;
-  const changeGameBoard = (position, play) => {
-    gameBoard[position] = play;
+  const changeGameBoard = (position, marker) => {
+    gameBoard[position] = marker;
   };
 
   return { changeGameBoard, getGameboard };
@@ -26,7 +26,7 @@ const displayController = (() => {
 
     const thisCell = e.target;
     const thisCellIndex = Array.prototype.indexOf.call(cells, thisCell);
-    Game.currentPlayer.play(thisCellIndex);
+    Game.currentPlayer.mark(thisCellIndex);
     renderBoard();
   };
 
@@ -43,23 +43,23 @@ const displayController = (() => {
 })();
 
 const player = (state) => ({
-  play: (position) => {
-    Gameboard.changeGameBoard(position, state.playsWhich);
+  mark: (position) => {
+    Gameboard.changeGameBoard(position, state.marker);
   },
 });
 
-const human = (playsWhich) => {
+const human = (marker) => {
   const state = {
-    playsWhich,
+    marker,
   };
   return {
     ...player(state),
   };
 };
 
-const computer = (playsWhich) => {
+const computer = (marker) => {
   const state = {
-    playsWhich,
+    marker,
   };
   return {
     ...player(state),
