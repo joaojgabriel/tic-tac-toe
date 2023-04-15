@@ -41,7 +41,6 @@ const displayController = (() => {
     const thisCellIndex = thisCell.getAttribute('data-index');
     Game.currentPlayer.mark(thisCellIndex);
     Game.turn += 1;
-    renderBoard();
   };
 
   const getClick = () => {
@@ -59,6 +58,7 @@ const displayController = (() => {
 const player = (state) => ({
   mark: (position) => {
     Gameboard.changeGameBoard(position, state.marker);
+    displayController.renderBoard();
   },
 });
 
