@@ -85,7 +85,8 @@ const computer = (marker) => {
   const state = {
     marker,
     pick: () => {
-      // make computer pick
+      const options = Gameboard.areSelectable();
+      const randomChoice = options[Math.floor(Math.random() * options.length)];
     },
   };
   return {
