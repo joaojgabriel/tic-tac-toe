@@ -49,21 +49,35 @@ const player = (state) => ({
   },
 });
 
+const picker = (state) => ({
+  pick: () => {
+    state.pick();
+  },
+});
+
 const human = (marker) => {
   const state = {
     marker,
+    pick: () => {
+      // make human pick
+    },
   };
   return {
     ...player(state),
+    ...picker(state),
   };
 };
 
 const computer = (marker) => {
   const state = {
     marker,
+    pick: () => {
+      // make computer pick
+    },
   };
   return {
     ...player(state),
+    ...picker(state),
   };
 };
 
@@ -73,5 +87,9 @@ const Game = (() => {
   const playerX = human('X');
   const playerO = computer('O');
   const currentPlayer = playerX;
+  while (turn < 9) {
+    currentPlayer.pick();
+    turn += 1;
+  }
   return { currentPlayer };
 })();
