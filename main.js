@@ -55,40 +55,41 @@ const displayController = (() => {
   return { renderBoard, getClick };
 })();
 
-const marker = (state) => ({
-  mark: (position) => {
-    Gameboard.changeGameBoard(position, state.symbol);
-    displayController.renderBoard();
-  },
-});
-
-const human = (symbol) => {
-  const state = {
-    symbol,
-  };
-  return {
-    ...marker(state),
-    pick: () => {
-      displayController.getClick();
-    },
-  };
-};
-
-const computer = (symbol) => {
-  const state = {
-    symbol,
-  };
-  return {
-    ...marker(state),
-    pick() {
-      const options = Gameboard.areSelectable();
-      const randomChoice = options[Math.floor(Math.random() * options.length)];
-      this.mark(randomChoice);
-    },
-  };
-};
-
 const Game = (() => {
+  const marker = (state) => ({
+    mark: (position) => {
+      Gameboard.changeGameBoard(position, state.symbol);
+      displayController.renderBoard();
+    },
+  });
+
+  const human = (symbol) => {
+    const state = {
+      symbol,
+    };
+    return {
+      ...marker(state),
+      pick: () => {
+        displayController.getClick();
+      },
+    };
+  };
+
+  const computer = (symbol) => {
+    const state = {
+      symbol,
+    };
+    return {
+      ...marker(state),
+      pick() {
+        const options = Gameboard.areSelectable();
+        const randomChoice =
+          options[Math.floor(Math.random() * options.length)];
+        this.mark(randomChoice);
+      },
+    };
+  };
+
   let turn = 0;
   turn += 1;
   const playerX = human('X');
