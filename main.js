@@ -5,7 +5,8 @@ const Gameboard = (() => {
     gameBoard[position] = marker;
   };
   const canMark = (index) => !gameBoard[index];
-  const areSelectable = () => gameBoard.map((_item, index) => canMark(index));
+  const areSelectable = () =>
+    gameBoard.map((_, index) => index).filter((index) => canMark(index));
 
   return {
     changeGameBoard,
