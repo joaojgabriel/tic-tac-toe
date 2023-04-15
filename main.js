@@ -7,8 +7,7 @@ const Gameboard = (() => {
   const canMark = (index) => !gameBoard[index];
   const areSelectable = () => {
     const selectableIndexes = [];
-    let i = 0;
-    for (i; i < 9; i += 1) {
+    for (let i = 0; i < 9; i += 1) {
       if (canMark(i)) selectableIndexes.push(i);
     }
     return selectableIndexes;
