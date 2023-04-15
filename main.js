@@ -59,7 +59,7 @@ const human = (marker) => {
   const state = {
     marker,
     pick: () => {
-      // make human pick
+      displayController.getClick();
     },
   };
   return {
