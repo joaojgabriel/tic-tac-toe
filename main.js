@@ -62,36 +62,29 @@ const player = (state) => ({
   },
 });
 
-const picker = (state) => ({
-  pick: () => {
-    state.pick();
-  },
-});
-
 const human = (marker) => {
   const state = {
     marker,
-    pick: () => {
-      displayController.getClick();
-    },
   };
   return {
     ...player(state),
-    ...picker(state),
+    pick: () => {
+      displayController.getClick();
+    },
   };
 };
 
 const computer = (marker) => {
   const state = {
     marker,
-    pick: () => {
-      const options = Gameboard.areSelectable();
-      const randomChoice = options[Math.floor(Math.random() * options.length)];
-    },
   };
   return {
     ...player(state),
-    ...picker(state),
+    pick() {
+      const options = Gameboard.areSelectable();
+      const randomChoice = options[Math.floor(Math.random() * options.length)];
+      this.mark(randomChoice);
+    },
   };
 };
 
