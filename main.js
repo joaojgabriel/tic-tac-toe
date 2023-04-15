@@ -5,8 +5,14 @@ const Gameboard = (() => {
     gameBoard[position] = marker;
   };
   const canMark = (index) => !gameBoard[index];
-  const areSelectable = () =>
-    gameBoard.map((_, index) => index).filter((index) => canMark(index));
+  const areSelectable = () => {
+    const selectableIndexes = [];
+    let i = 0;
+    for (i; i < 9; i += 1) {
+      if (canMark(i)) selectableIndexes.push(i);
+    }
+    return selectableIndexes;
+  };
 
   return {
     changeGameBoard,
