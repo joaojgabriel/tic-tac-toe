@@ -27,6 +27,7 @@ const displayController = (() => {
     const thisCell = e.target;
     const thisCellIndex = Array.prototype.indexOf.call(cells, thisCell);
     Game.currentPlayer.mark(thisCellIndex);
+    Game.turn += 1;
     renderBoard();
   };
 
@@ -67,6 +68,8 @@ const computer = (marker) => {
 };
 
 const Game = (() => {
+  let turn = 0;
+  turn += 1;
   const playerX = human('X');
   const playerO = computer('O');
   const currentPlayer = playerX;
