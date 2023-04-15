@@ -4,8 +4,9 @@ const Gameboard = (() => {
   const changeGameBoard = (position, marker) => {
     gameBoard[position] = marker;
   };
+  const canMark = (index) => !gameBoard[index];
 
-  return { changeGameBoard, getGameboard };
+  return { changeGameBoard, getGameboard, canMark };
 })();
 
 const displayController = (() => {
@@ -33,7 +34,7 @@ const displayController = (() => {
 
   const getClick = () => {
     cells.forEach((cell, index) => {
-      if (!gameBoard[index]) {
+      if (Gameboard.canMark(index)) {
         cell.classList.add('selectable');
         cell.addEventListener('click', handleCLick);
       }
