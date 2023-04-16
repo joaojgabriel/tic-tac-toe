@@ -87,7 +87,31 @@ const Game = (() => {
 
   const winner = (state) => ({
     isWinner: () => {
-      // TODO
+      const winning = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8], // horizontal
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8], // vertical
+        [0, 4, 8],
+        [2, 4, 6], // diagonal
+      ];
+
+      winning.forEach((combo) => {
+        const [a, b, c] = combo;
+        const gameBoard = Gameboard.getGameboard();
+        if (
+          gameBoard[a] === state.symbol &&
+          gameBoard[b] === state.symbol &&
+          gameBoard[c] === state.symbol
+        ) {
+          return true;
+        }
+        return 0;
+      });
+
+      return false;
     },
   });
 
@@ -105,6 +129,7 @@ const Game = (() => {
     };
     return {
       ...marker(state),
+      ...winner(state),
       pick: () => {
         displayController.getClick();
       },
@@ -117,6 +142,7 @@ const Game = (() => {
     };
     return {
       ...marker(state),
+      ...winner(state),
       pick() {
         const options = Gameboard.areSelectable();
         const randomChoice =
