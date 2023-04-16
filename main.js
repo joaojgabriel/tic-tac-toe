@@ -100,12 +100,12 @@ const Game = (() => {
         [0, 4, 8],
         [2, 4, 6], // diagonal
       ];
+      const gameBoard = Gameboard.getGameboard();
 
       let isWinning = false;
 
       winning.forEach((combo) => {
         const [a, b, c] = combo;
-        const gameBoard = Gameboard.getGameboard();
         if (
           gameBoard[a] === state.symbol &&
           gameBoard[b] === state.symbol &&
