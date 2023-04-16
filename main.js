@@ -64,9 +64,9 @@ const Game = (() => {
     // TODO
   };
 
-  function turnEnder() {
+  const turnEnder = () => {
     let turn = 0;
-    return function () {
+    return () => {
       turn += 1;
       if (currentPlayer.isWinner()) {
         handleWin(currentPlayer);
