@@ -56,10 +56,46 @@ const displayController = (() => {
 })();
 
 const Game = (() => {
+  let currentPlayer;
+  let switchPlayer;
+  const handleTie = () => {
+    // TODO
+  };
+  const handleWin = (player) => {
+    // TODO
+  };
+
+  const endTurn = function endTurn() {
+    let turn = 0;
+    return () => {
+      turn += 1;
+      if (currentPlayer.isWinner()) {
+        handleWin(currentPlayer);
+        turn = 0;
+        return 0;
+      }
+      if (turn === 9) {
+        handleTie();
+        turn = 0;
+        return 0;
+      }
+      switchPlayer();
+      currentPlayer.pick();
+      return 0;
+    };
+  };
+
+  const winner = (state) => ({
+    isWinner: () => {
+      // TODO
+    },
+  });
+
   const marker = (state) => ({
     mark: (position) => {
       Gameboard.changeGameBoard(position, state.symbol);
       displayController.renderBoard();
+      endTurn();
     },
   });
 
@@ -90,14 +126,10 @@ const Game = (() => {
     };
   };
 
-  let turn = 0;
-  turn += 1;
   const playerX = human('X');
   const playerO = computer('O');
-  const currentPlayer = playerX;
-  while (turn < 9) {
-    currentPlayer.pick();
-    turn += 1;
-  }
+
+  currentPlayer = playerX;
+
   return { currentPlayer };
 })();
