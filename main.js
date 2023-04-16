@@ -40,7 +40,6 @@ const displayController = (() => {
     const thisCell = e.target;
     const thisCellIndex = thisCell.getAttribute('data-index');
     Game.currentPlayer.mark(thisCellIndex);
-    Game.turn += 1;
   };
 
   const getClick = () => {
@@ -65,9 +64,9 @@ const Game = (() => {
     // TODO
   };
 
-  const endTurn = function endTurn() {
+  function turnEnder() {
     let turn = 0;
-    return () => {
+    return function () {
       turn += 1;
       if (currentPlayer.isWinner()) {
         handleWin(currentPlayer);
@@ -84,6 +83,8 @@ const Game = (() => {
       return 0;
     };
   };
+
+  const endTurn = turnEnder();
 
   const winner = (state) => ({
     isWinner: () => {
@@ -130,6 +131,7 @@ const Game = (() => {
     return {
       ...marker(state),
       ...winner(state),
+      symbol,
       pick: () => {
         displayController.getClick();
       },
@@ -143,11 +145,13 @@ const Game = (() => {
     return {
       ...marker(state),
       ...winner(state),
+      symbol,
       pick() {
         const options = Gameboard.areSelectable();
         const randomChoice =
           options[Math.floor(Math.random() * options.length)];
         this.mark(randomChoice);
+        displayController.renderBoard();
       },
     };
   };
@@ -156,17 +160,12 @@ const Game = (() => {
   const playerO = computer('O');
 
   currentPlayer = playerX;
-  let playerToggle = false;
   switchPlayer = () => {
-    playerToggle = !playerToggle;
-    if (playerToggle) {
-      currentPlayer = playerO;
-      currentPlayer.pick();
-    } else {
-      currentPlayer = playerX;
-      currentPlayer.pick();
-    }
+    currentPlayer = currentPlayer.symbol === 'X' ? playerO : playerX;
+    currentPlayer.pick();
   };
+
+  currentPlayer.pick();
 
   return { currentPlayer };
 })();
