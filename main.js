@@ -21,9 +21,26 @@ const Gameboard = (() => {
   };
 })();
 
+let Game;
+
 const displayController = (() => {
+  const startMenu = document.querySelector('.startMenu');
+  const playerInput = document.querySelector('input#name');
+  const startButton = document.querySelector('.startButton');
+  const game = document.querySelector('.game');
+  const displayPlayer = document.querySelector('.displayPlayer');
   const cells = document.querySelectorAll('.cell');
   const gameBoard = Gameboard.getGameboard();
+
+  const handleStart = () => {
+    startMenu.classList.toggle('hidden');
+    game.classList.toggle('hidden');
+    const playerName = playerInput.value;
+    displayPlayer.textContent = playerName ? `${playerName} plays` : `${Game.currentPlayer.symbol} plays`;
+    Game.start();
+  };
+
+  startButton.addEventListener('click', handleStart);
 
   const renderBoard = () => {
     cells.forEach((cell, index) => {
@@ -54,7 +71,7 @@ const displayController = (() => {
   return { renderBoard, getClick };
 })();
 
-const Game = (() => {
+Game = (() => {
   let currentPlayer;
   let switchPlayer;
   const handleTie = () => {
@@ -167,8 +184,9 @@ const Game = (() => {
     currentPlayer = currentPlayer.symbol === 'X' ? playerO : playerX;
     currentPlayer.pick();
   };
+  const start = () => {
+    currentPlayer.pick();
+  };
 
-  currentPlayer.pick();
-
-  return { currentPlayer };
+  return { currentPlayer, start };
 })();

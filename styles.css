@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.hidden {
+  display: none;
+}
+
 .gameBoard {
   display:grid;
   grid: 50px 50px 50px / 50px 50px 50px 
