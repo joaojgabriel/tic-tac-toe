@@ -1,5 +1,5 @@
 const Gameboard = (() => {
-  const gameBoard = ['X', 'O', 'X', null, 'X', null, 'X', 'O', 'X'];
+  const gameBoard = [null, null, null, null, null, null, null, null, null];
   const getGameboard = () => gameBoard;
   const changeGameBoard = (position, symbol) => {
     gameBoard[position] = symbol;
@@ -59,9 +59,11 @@ const Game = (() => {
   let switchPlayer;
   const handleTie = () => {
     // TODO
+    console.log('tie');
   };
   const handleWin = (player) => {
     // TODO
+    console.log(`win${player}`);
   };
 
   const turnEnder = () => {
@@ -99,6 +101,8 @@ const Game = (() => {
         [2, 4, 6], // diagonal
       ];
 
+      let isWinning = false;
+
       winning.forEach((combo) => {
         const [a, b, c] = combo;
         const gameBoard = Gameboard.getGameboard();
@@ -107,12 +111,11 @@ const Game = (() => {
           gameBoard[b] === state.symbol &&
           gameBoard[c] === state.symbol
         ) {
-          return true;
+          isWinning = true;
         }
-        return 0;
       });
 
-      return false;
+      return isWinning;
     },
   });
 

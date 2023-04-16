@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+.gameBoard {
+  display:grid;
+  grid: 50px 50px 50px / 50px 50px 50px 
+}
+
 .cell {
   display: grid;
   place-items: center;
