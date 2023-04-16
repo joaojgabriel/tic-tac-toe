@@ -156,6 +156,17 @@ const Game = (() => {
   const playerO = computer('O');
 
   currentPlayer = playerX;
+  let playerToggle = false;
+  switchPlayer = () => {
+    playerToggle = !playerToggle;
+    if (playerToggle) {
+      currentPlayer = playerO;
+      currentPlayer.pick();
+    } else {
+      currentPlayer = playerX;
+      currentPlayer.pick();
+    }
+  };
 
   return { currentPlayer };
 })();
