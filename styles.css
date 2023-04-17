@@ -9,8 +9,8 @@
 }
 
 .gameBoard {
-  display:grid;
-  grid: 50px 50px 50px / 50px 50px 50px 
+  display: grid;
+  grid: 50px 50px 50px / 50px 50px 50px;
 }
 
 .cell {
