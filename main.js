@@ -38,19 +38,26 @@ let Game;
 const displayController = (() => {
   const startMenu = document.querySelector('.startMenu');
   const playerInput = document.querySelector('input#name');
+  const playerName = playerInput.value;
   const startButton = document.querySelector('.startButton');
   const game = document.querySelector('.game');
   const restartButton = document.querySelector('.restartButton');
-  const displayPlayer = document.querySelector('.displayPlayer');
+  const display = document.querySelector('.display');
   const cells = document.querySelectorAll('.cell');
+
+  const updateDisplay = (text) => {
+    display.textContent = text;
+  };
+
+  const announcePlayer = () => {
+    if (playerName) updateDisplay(`${playerName} plays`);
+    else updateDisplay(`${Game.currentPlayer.symbol} plays`);
+  };
 
   const handleStart = () => {
     startMenu.classList.toggle('hidden');
     game.classList.toggle('hidden');
-    const playerName = playerInput.value;
-    displayPlayer.textContent = playerName
-      ? `${playerName} plays`
-      : `${Game.currentPlayer.symbol} plays`;
+    announcePlayer();
     Game.start();
   };
 
@@ -66,6 +73,7 @@ const displayController = (() => {
     Gameboard.clear();
     renderBoard();
     Game.start();
+    announcePlayer();
   };
 
   restartButton.addEventListener('click', handleRestart);
@@ -90,7 +98,12 @@ const displayController = (() => {
     });
   };
 
-  return { renderBoard, getClick };
+  return {
+    renderBoard,
+    getClick,
+    updateDisplay,
+    playerName,
+  };
 })();
 
 Game = (() => {
@@ -100,14 +113,17 @@ Game = (() => {
   let endTurn;
 
   const handleTie = () => {
-    // TODO
-    console.log('tie');
+    displayController.updateDisplay("It's a tie");
   };
 
   const handleWin = (player) => {
-    // TODO
+    const { playerName } = displayController;
+    if (playerName) {
+      displayController.updateDisplay(`${playerName} wins!`);
+    } else {
+      displayController.updateDisplay(`${player.symbol} wins!`);
+    }
     endTurn();
-    console.log(`win${player.symbol}`);
   };
 
   endTurn = () => {
