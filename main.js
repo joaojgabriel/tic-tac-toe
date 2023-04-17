@@ -37,11 +37,20 @@ const displayController = (() => {
   const display = document.querySelector('.display');
   const cells = document.querySelectorAll('.cell');
   const isSmartSelect = document.querySelector('select#isSmart');
-  const isSmartValue = isSmartSelect.value;
+  let isSmartValue = isSmartSelect.value;
 
   const updateDisplay = (text) => {
     display.textContent = text;
   };
+
+  const changeSmartness = (e) => {
+    isSmartValue = e.target.value;
+    const bool = isSmartValue === 'true';
+
+    Game.playerO.isSmart = bool;
+  };
+
+  isSmartSelect.addEventListener('change', changeSmartness);
 
   const announcePlayer = () => {
     if (playerName) updateDisplay(`${playerName} plays`);
@@ -189,7 +198,7 @@ Game = (() => {
 
   const computer = (symbol) => ({
     ...marker(symbol),
-    isSmart: !!displayController.isSmartValue,
+    isSmart: displayController.isSmartValue === 'true',
     symbol,
     pick() {
       const options = Gameboard.areSelectable();
@@ -272,5 +281,5 @@ Game = (() => {
     currentPlayer.pick();
   };
 
-  return { currentPlayer, start, isWinner, isTie };
+  return { currentPlayer, start, isWinner, isTie, playerO };
 })();
