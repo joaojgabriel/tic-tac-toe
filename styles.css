@@ -10,16 +10,19 @@
 
 .gameBoard {
   display: grid;
-  grid: 50px 50px 50px / 50px 50px 50px;
+  grid: repeat(3,1fr) / repeat(3,1fr);
+  width: 300px;
+  aspect-ratio: 1/1;
+  gap: 10px;
+  background-color: black;
+  margin-bottom: 25px;
 }
 
 .cell {
   display: grid;
   place-items: center;
-  width: 50px;
-  height: 50px;
-  margin: 10px;
-  border: 2px solid red;
+  font-size: 50px;
+  background-color: white;
 }
 
 .cell.selectable:hover {
