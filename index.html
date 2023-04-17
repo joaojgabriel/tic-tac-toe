@@ -10,11 +10,19 @@
   </head>
   <body>
     <main>
-      <div class="startMenu">
-        <label for="name">What is your name? </label
-        ><input type="text" id="name" />
-        <button type="button" class="startButton">Start Game</button>
+      <div class="start">
+        <p>
+          <label for="name">What is your name? </label
+          ><input type="text" id="name" />
+        </p>
       </div>
+      <label for="isSmart">Computer is a </label>
+      <select name="isSmart" id="isSmart">
+        <option value="false">dummy</option>
+        <option value="true">smartypants</option>
+      </select>
+      <div class="start"><button type="button" class="startButton">Start Game</button></div>
+
       <div class="game hidden">
         <div><span class="display"></span></div>
         <div class="gameBoard">

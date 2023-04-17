@@ -28,7 +28,7 @@ const Gameboard = (() => {
 let Game;
 
 const displayController = (() => {
-  const startMenu = document.querySelector('.startMenu');
+  const startMenu = document.querySelectorAll('.start');
   const playerInput = document.querySelector('input#name');
   const playerName = playerInput.value;
   const startButton = document.querySelector('.startButton');
@@ -36,6 +36,8 @@ const displayController = (() => {
   const restartButton = document.querySelector('.restartButton');
   const display = document.querySelector('.display');
   const cells = document.querySelectorAll('.cell');
+  const isSmartSelect = document.querySelector('select#isSmart');
+  const isSmartValue = isSmartSelect.value;
 
   const updateDisplay = (text) => {
     display.textContent = text;
@@ -47,7 +49,9 @@ const displayController = (() => {
   };
 
   const handleStart = () => {
-    startMenu.classList.toggle('hidden');
+    Array.prototype.forEach.call(startMenu, (startItem) =>
+      startItem.classList.toggle('hidden'),
+    );
     game.classList.toggle('hidden');
     announcePlayer();
     Game.start();
@@ -94,6 +98,7 @@ const displayController = (() => {
     renderBoard,
     getClick,
     updateDisplay,
+    isSmartValue,
     playerName,
   };
 })();
@@ -182,13 +187,14 @@ Game = (() => {
     },
   });
 
-  const computer = (symbol, isSmart) => ({
+  const computer = (symbol) => ({
     ...marker(symbol),
+    isSmart: !!displayController.isSmartValue,
     symbol,
     pick() {
       const options = Gameboard.areSelectable();
       let move;
-      if (isSmart) {
+      if (this.isSmart) {
         const boardState = Gameboard.get();
         const opponent = symbol === 'O' ? 'X' : 'O';
         const minimax = (board, currentOptions, depth, isMaximizingPlayer) => {
@@ -251,17 +257,18 @@ Game = (() => {
   });
 
   const playerX = human('X');
-  const playerO = computer('O', true);
+  const playerO = computer('O');
 
-  switchPlayer = () => {
-    currentPlayer = currentPlayer.symbol === 'X' ? playerO : playerX;
-    currentPlayer.pick();
-  };
   currentPlayer = playerX;
 
   const start = () => {
     turn = 0;
     currentPlayer = playerX;
+    currentPlayer.pick();
+  };
+
+  switchPlayer = () => {
+    currentPlayer = currentPlayer.symbol === 'X' ? playerO : playerX;
     currentPlayer.pick();
   };
 
