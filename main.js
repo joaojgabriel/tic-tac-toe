@@ -125,7 +125,7 @@ Game = (() => {
 
   const handleWin = (playerSymbol) => {
     const { playerName } = displayController;
-    if (playerName) {
+    if (playerName && playerSymbol === 'X') {
       displayController.updateDisplay(`${playerName} wins!`);
     } else {
       displayController.updateDisplay(`${playerSymbol} wins!`);

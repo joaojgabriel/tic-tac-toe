@@ -8,7 +8,21 @@
   display: none;
 }
 
+main {
+  margin: 0 auto;
+  text-align: center;
+}
+
+main > * {
+  margin-bottom: 10px;
+}
+
+.game > *:first-child {
+  margin-bottom: 10px;
+
+}
 .gameBoard {
+  margin: 0 auto;
   display: grid;
   grid: repeat(3,1fr) / repeat(3,1fr);
   width: 300px;
