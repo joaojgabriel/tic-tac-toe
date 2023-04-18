@@ -207,9 +207,9 @@ Game = (() => {
         const boardState = Gameboard.get();
         const opponent = symbol === 'O' ? 'X' : 'O';
         const minimax = (board, currentOptions, depth, isMaximizingPlayer) => {
-          if (isWinner(symbol, board)) return +10;
-          if (isWinner(opponent, board)) return -10;
-          if (isTie(depth)) return 0;
+          if (isWinner(symbol, board)) return 9 - depth + Math.random();
+          if (isWinner(opponent, board)) return depth - 9 - Math.random();
+          if (isTie(depth)) return Math.random();
 
           if (isMaximizingPlayer) {
             let max = -Infinity;
